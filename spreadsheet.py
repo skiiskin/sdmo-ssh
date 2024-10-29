@@ -1,8 +1,8 @@
+
 class SpreadSheet:
 
     def __init__(self):
         self._cells = {}
-        self._evaluating = set()
 
     def set(self, cell: str, value: str) -> None:
         self._cells[cell] = value
@@ -14,5 +14,8 @@ class SpreadSheet:
         value = self.get(cell)
         if value.isdigit():
             return int(value)
-        return "#ERROR"
+        elif value.replace('.', '', 1).isdigit():
+            return "#ERROR"
+        else:
+            return value
 
