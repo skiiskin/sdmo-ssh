@@ -39,3 +39,9 @@ class TestSpreadSheet(TestCase):
         spreadsheet.set("A1", "='Apple")
         self.assertEqual("#ERROR", spreadsheet.evaluate("A1"))
 
+    def test_formula_reference_valid_integer(self):
+        spreadsheet = SpreadSheet()
+        spreadsheet.set("A1", "=B1")
+        spreadsheet.set("B1", 42)
+        self.assertEqual(42, spreadsheet.evaluate("A1"))
+
