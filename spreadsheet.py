@@ -32,15 +32,20 @@ class SpreadSheet:
                     return int(value[1:])
                 elif value.startswith("='") and value.endswith("'"):
                     return value[2:-1]
+                elif value.startswith("='") and not value.endswith("'"):
+                    return "#ERROR"
                 elif value[1:] in self._cells:
                     return self.evaluate(value[1:], visited)
                 else:
                     # Evaluate simple arithmetic expressions but don't allow calculating using float numbers
                     expression = value[1:]
-                    result = eval(expression)
-                    if isinstance(result, int):
-                        return result
-                    else:
+                    try:
+                        result = eval(expression)
+                        if isinstance(result, int):
+                            return result
+                        else:
+                            return "#ERROR"
+                    except ZeroDivisionError:
                         return "#ERROR"
         return "#ERROR"
 
