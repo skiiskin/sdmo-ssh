@@ -41,6 +41,7 @@ class SpreadSheet:
                     expression = value[1:]
                     try:
                         # Replace cell references in the expression with their evaluated values
+                        # Return "#Circular" in case the following cells reference the previous ones
                         for ref in self._cells:
                             if ref in expression:
                                 ref_value = self.evaluate(ref, visited)

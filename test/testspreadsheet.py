@@ -89,6 +89,14 @@ class TestSpreadSheet(TestCase):
         spreadsheet.set("B1", "=3.1")
         self.assertEqual("#ERROR", spreadsheet.evaluate("A1"))
 
+    def test_formula_reference_addition_circular(self):
+        spreadsheet = SpreadSheet()
+        spreadsheet.set("A1", "=1+B1")
+        spreadsheet.set("B1", "=A1")
+        self.assertEqual("#Circular", spreadsheet.evaluate("A1"))
+
+    
+
 
 
 
