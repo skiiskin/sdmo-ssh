@@ -35,11 +35,12 @@ class SpreadSheet:
                 elif value[1:] in self._cells:
                     return self.evaluate(value[1:], visited)
                 else:
-                    try:
-                        # Evaluate simple arithmetic expressions
-                        expression = value[1:]
-                        return eval(expression)
-                    except:
+                    # Evaluate simple arithmetic expressions but don't allow calculating using float numbers
+                    expression = value[1:]
+                    result = eval(expression)
+                    if isinstance(result, int):
+                        return result
+                    else:
                         return "#ERROR"
         return "#ERROR"
 

@@ -62,3 +62,9 @@ class TestSpreadSheet(TestCase):
         spreadsheet.set("A1", "=1+3")
         self.assertEqual(4, spreadsheet.evaluate("A1"))
 
+    def test_formula_addition_invalid(self):
+        spreadsheet = SpreadSheet()
+        spreadsheet.set("A1", "=1+3.5")
+        self.assertEqual("#ERROR", spreadsheet.evaluate("A1"))
+
+    
