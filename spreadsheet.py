@@ -10,7 +10,15 @@ class SpreadSheet:
     def get(self, cell: str):
         return self._cells.get(cell, '')
 
-    def evaluate(self, cell: str):
+    def evaluate(self, cell: str, visited=None):
+        if visited is None:
+            visited = set()
+        
+        if cell in visited:
+            return "#Circular"
+        
+        visited.add(cell)
+        
         value = self.get(cell)
         if isinstance(value, int):
             return value
@@ -25,6 +33,8 @@ class SpreadSheet:
                 elif value.startswith("='") and value.endswith("'"):
                     return value[2:-1]
                 elif value[1:] in self._cells:
-                    return self.evaluate(value[1:])
+                    return self.evaluate(value[1:], visited)
+                else:
+                    return "#ERROR"
         return "#ERROR"
 
