@@ -34,4 +34,8 @@ class TestSpreadSheet(TestCase):
         spreadsheet.set("A1", "=1")
         self.assertEqual(1, spreadsheet.evaluate("A1"))
 
+    def test_formula_evaluate_invalid_string(self):
+        spreadsheet = SpreadSheet()
+        spreadsheet.set("A1", "='Apple")
+        self.assertEqual("#ERROR", spreadsheet.evaluate("A1"))
 
