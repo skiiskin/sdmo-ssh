@@ -77,6 +77,14 @@ class TestSpreadSheet(TestCase):
         spreadsheet.set("A1", "=1+3*2")
         self.assertEqual(7, spreadsheet.evaluate("A1"))
 
+    def test_formula_reference_addition_valid(self):
+        spreadsheet = SpreadSheet()
+        spreadsheet.set("A1", "=1+B1")
+        spreadsheet.set("B1", "=3")
+        self.assertEqual(4, spreadsheet.evaluate("A1"))
+
+    
+
 
 
 

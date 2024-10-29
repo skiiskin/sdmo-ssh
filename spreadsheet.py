@@ -40,6 +40,14 @@ class SpreadSheet:
                     # Evaluate simple arithmetic expressions but don't allow calculating using float numbers
                     expression = value[1:]
                     try:
+                        # Replace cell references in the expression with their evaluated values
+                        for ref in self._cells:
+                            if ref in expression:
+                                ref_value = self.evaluate(ref, visited)
+                                if isinstance(ref_value, int):
+                                    expression = expression.replace(ref, str(ref_value))
+                                else:
+                                    return "#ERROR"
                         result = eval(expression)
                         if isinstance(result, int):
                             return result
